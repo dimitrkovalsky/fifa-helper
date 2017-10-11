@@ -1,0 +1,7 @@
+package com.liberty.fifahelper.crawler;
+
+public interface CrawlerService {
+    void fetchData(Long playerId);
+
+    void fetchAllPlayers();
+}
