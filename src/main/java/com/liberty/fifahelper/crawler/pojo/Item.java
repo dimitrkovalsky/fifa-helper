@@ -10,7 +10,7 @@ import java.io.Serializable;
 import java.util.List;
 
 @Data
-public class Items implements Serializable {
+public class Item implements Serializable {
 
     @JsonProperty("commonName")
     private String commonName;
@@ -240,5 +240,11 @@ public class Items implements Serializable {
     @JsonProperty("rating")
     private int rating;
 
+    @JsonProperty("composure")
+    private int composure;
+
+
+    @JsonProperty("iconAttributes")
+    private Object iconAttributes;
 
 }

@@ -21,7 +21,7 @@ public class BuyPlayerInfoController {
 
     @CrossOrigin(origins = "*")
     @RequestMapping(path = "/get", method = RequestMethod.POST)
-    public Map<Long, BuyPlayerInfo> get(@RequestBody List<Long> ids) {
+    public Map<String, BuyPlayerInfo> get(@RequestBody List<String> ids) {
         if (CollectionUtils.isEmpty(ids)) {
             log.info("Can not found info about player for empty ids");
             return Collections.emptyMap();

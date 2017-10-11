@@ -47,8 +47,6 @@ public class CrawlerServiceImpl implements CrawlerService {
         }
         profileRepository.save(profile);
         imageService.saveImage(profile.getHeadshotImgUrl(), playerId);
-
-
     }
 
     @Override

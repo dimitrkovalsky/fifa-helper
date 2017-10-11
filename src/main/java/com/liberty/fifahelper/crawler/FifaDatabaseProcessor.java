@@ -2,11 +2,10 @@ package com.liberty.fifahelper.crawler;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.collect.Lists;
 import com.liberty.fifahelper.common.JsonHelper;
 import com.liberty.fifahelper.common.RequestHelper;
 import com.liberty.fifahelper.crawler.pojo.FifaResponse;
-import com.liberty.fifahelper.crawler.pojo.Items;
+import com.liberty.fifahelper.crawler.pojo.Item;
 import com.liberty.fifahelper.model.*;
 
 import com.liberty.fifahelper.repository.ClubRepository;
@@ -73,7 +72,7 @@ public class FifaDatabaseProcessor {
             String response = RequestHelper.executeRequestAndGetResult(url);
             Optional<FifaResponse> parsed = JsonHelper.toEntity(response, FifaResponse.class);
 
-            List<Items> items = parsed.get().items;
+            List<Item> items = parsed.get().items;
             if (items.size() > 1) {
                 log.info("FOUND MORE THAN 1 PLAYER FOR : " + id);
             }
@@ -90,7 +89,7 @@ public class FifaDatabaseProcessor {
         }
     }
 
-    private Optional<PlayerProfile> fetchInfo(Items item) {
+    private Optional<PlayerProfile> fetchInfo(Item item) {
 
         PlayerProfile profile = new PlayerProfile();
         profile.setId(item.getId());
@@ -118,7 +117,7 @@ public class FifaDatabaseProcessor {
         return Optional.of(profile);
     }
 
-    private void addClubsAndLeagues(Items item) {
+    private void addClubsAndLeagues(Item item) {
         try {
 
             if (!leagues.contains(item.getLeague())) {
@@ -146,7 +145,7 @@ public class FifaDatabaseProcessor {
         }
     }
 
-    private Optional<PlayerProfile> parseGoalkeeper(Items item) {
+    private Optional<PlayerProfile> parseGoalkeeper(Item item) {
         return Optional.empty();
     }
 

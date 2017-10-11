@@ -1,7 +1,7 @@
 package com.liberty.fifahelper.model;
 
 import com.liberty.fifahelper.crawler.pojo.Attributes;
-import com.liberty.fifahelper.crawler.pojo.Items;
+import com.liberty.fifahelper.crawler.pojo.Item;
 import easports.model.PlatformPriceLimits;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
@@ -55,7 +55,7 @@ public class PlayerProfile {
 
     public Integer rating;
 
-    public Items fullInfo;
+    public Item fullInfo;
 
     public PlatformPriceLimits priceLimits;
 

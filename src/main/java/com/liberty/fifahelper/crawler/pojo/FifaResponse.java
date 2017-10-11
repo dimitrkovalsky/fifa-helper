@@ -24,7 +24,7 @@ public class FifaResponse implements Serializable {
     public double count;
 
     @JsonProperty("items")
-    public List<Items> items;
+    public List<Item> items;
 
 
 }
