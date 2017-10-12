@@ -27,13 +27,13 @@ public class EaSportsClientImpl implements EaSportsClient {
     }
 
     @Override
-    public PlayerPriceLimits getPriceLimits(Long playerId) {
+    public PlayerPriceLimits getPriceLimits(String playerId) {
         String jsonResponse = restTemplate.getForEntity(buildUrl(PRICE_LIMITS_URL + playerId), String.class)
                 .getBody();
         return readPriceLimits(playerId, jsonResponse);
     }
 
-    private PlayerPriceLimits readPriceLimits(Long playerId, String jsonResponse) {
+    private PlayerPriceLimits readPriceLimits(String playerId, String jsonResponse) {
         try {
             Map<String, PlayerPriceLimits> limits = objectMapper.readValue(
                     jsonResponse, new TypeReference<Map<String, PlayerPriceLimits>>() {}

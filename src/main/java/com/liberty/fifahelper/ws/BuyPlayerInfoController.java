@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -19,7 +20,7 @@ public class BuyPlayerInfoController {
     @Autowired
     private BuyPlayerService buyPlayerService;
 
-    @CrossOrigin(origins = "*")
+    //    @CrossOrigin(origins = "*")
     @RequestMapping(path = "/get", method = RequestMethod.POST)
     public Map<String, BuyPlayerInfo> get(@RequestBody List<String> ids) {
         if (CollectionUtils.isEmpty(ids)) {
@@ -30,10 +31,13 @@ public class BuyPlayerInfoController {
         return buyPlayerService.getPlayerInfo(ids);
     }
 
-    @CrossOrigin(origins = "*")
-    @RequestMapping( method = RequestMethod.GET)
-    public String info() {
-        log.info("Server is app");
-        return "Server is app";
+    @RequestMapping(method = RequestMethod.POST)
+    public void add(@RequestBody @Valid BuyPlayerInfo info) {
+        buyPlayerService.addPlayerForBuy("ADMIN", info);
+    }
+
+    @RequestMapping(method = RequestMethod.GET)
+    public Map<String, BuyPlayerInfo> getAll(@RequestParam String userId) {
+        return buyPlayerService.getAllPlayers(userId);
     }
 }

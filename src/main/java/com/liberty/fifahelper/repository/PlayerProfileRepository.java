@@ -12,7 +12,7 @@ import java.util.List;
  * @since 17.05.2016.
  */
 @Repository
-public interface PlayerProfileRepository extends MongoRepository<PlayerProfile, Long> {
+public interface PlayerProfileRepository extends MongoRepository<PlayerProfile, String> {
 
     @Query(value = "{'name': {$regex : ?0, $options: 'i'}}")
     List<PlayerProfile> findByName(String phrase);

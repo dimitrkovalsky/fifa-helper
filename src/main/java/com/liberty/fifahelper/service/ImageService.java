@@ -14,9 +14,9 @@ import java.util.Optional;
  */
 public interface ImageService {
 
-    void saveImage(String url, long playerId);
+    void saveImage(String url, String playerId);
 
-    Optional<GridFSDBFile> getImage(long playerId);
+    Optional<GridFSDBFile> getImage(String playerId);
 
     Optional<GridFSDBFile> getClubImage(long clubId);
 

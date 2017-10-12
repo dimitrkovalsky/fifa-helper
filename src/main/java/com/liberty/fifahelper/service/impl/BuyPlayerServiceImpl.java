@@ -28,6 +28,11 @@ public class BuyPlayerServiceImpl implements BuyPlayerService {
         return getPlayerInfo(USER_ID, ids);
     }
 
+    @Override
+    public Map<String, BuyPlayerInfo> getAllPlayers(String userId) {
+        return getUserConfig(userId).getPlayers();
+    }
+
     private Map<String, BuyPlayerInfo> getPlayerInfo(String userId, List<String> ids) {
         BuyPlayersConfig one = getUserConfig(userId);
         Map<String, BuyPlayerInfo> map = new HashMap<>();

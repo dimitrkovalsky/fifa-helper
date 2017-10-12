@@ -14,5 +14,6 @@ public class CrawlerRunner {
         ConfigurableApplicationContext context = new SpringApplicationBuilder(CrawlerRunner.class).run(args);
         CrawlerService service = context.getBean(CrawlerService.class);
         service.fetchAllPlayers();
+        System.exit(0);
     }
 }

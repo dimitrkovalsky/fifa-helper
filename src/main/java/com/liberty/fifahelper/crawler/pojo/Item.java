@@ -229,7 +229,7 @@ public class Item implements Serializable {
     private Object discardValue;
 
     @JsonProperty("id")
-    private Long id;
+    private String id;
 
     @JsonProperty("modelName")
     private String modelName;

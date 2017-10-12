@@ -8,6 +8,8 @@ import java.util.Map;
 public interface BuyPlayerService {
     Map<String, BuyPlayerInfo> getPlayerInfo(List<String> ids);
 
+    Map<String, BuyPlayerInfo> getAllPlayers(String userId);
+
     // todo: add validation
     void addPlayerForBuy(String userId, BuyPlayerInfo info);
 }

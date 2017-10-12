@@ -11,7 +11,7 @@ import lombok.Data;
 public class FifaPlayerSuggestion {
 
     @JsonProperty("id")
-    private Long id;
+    private String id;
 
     @JsonProperty("c")
     private String title;

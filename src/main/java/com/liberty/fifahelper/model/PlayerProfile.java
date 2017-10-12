@@ -19,7 +19,7 @@ import java.util.List;
 public class PlayerProfile {
 
     @Id
-    private Long id;
+    private String id;
 
     public String commonName;
 

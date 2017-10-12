@@ -62,7 +62,7 @@ public class FifaDatabaseProcessor {
             "\\src\\main\\resources\\players.json";
 
 
-    public Optional<PlayerProfile> fetchInfo(long id) {
+    public Optional<PlayerProfile> fetchInfo(String id) {
         try {
             String json = JsonHelper.toJson(new RequestObject(id)).toString();
             String encodedJson = URLEncoder.encode(json, StandardCharsets.UTF_8.name());
@@ -186,6 +186,6 @@ public class FifaDatabaseProcessor {
     @AllArgsConstructor
     private class RequestObject {
 
-        private long id;
+        private String id;
     }
 }

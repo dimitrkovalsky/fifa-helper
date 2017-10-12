@@ -33,7 +33,7 @@ public class CrawlerServiceImpl implements CrawlerService {
     private ImageService imageService;
 
     @Override
-    public void fetchData(Long playerId) {
+    public void fetchData(String playerId) {
         PlayerProfile profile = profileRepository.findOne(playerId);
         if (profile == null) {
             Optional<PlayerProfile> maybeProfile = processor.fetchInfo(playerId);
@@ -42,7 +42,8 @@ public class CrawlerServiceImpl implements CrawlerService {
                 return;
             }
             profile = maybeProfile.get();
-        } else {
+        }
+        else {
             log.info("Player profile with id : " + playerId + " already exists");
         }
         profileRepository.save(profile);
@@ -53,9 +54,9 @@ public class CrawlerServiceImpl implements CrawlerService {
     public void fetchAllPlayers() {
         List<FifaPlayerSuggestion> suggestions = processor.readSuggestions();
         List<FifaPlayerSuggestion> players = suggestions;
-//    suggestions.stream()
-//        .filter(x -> x.getRating() >= 80)
-//        .collect(Collectors.toList());
+        //    suggestions.stream()
+        //        .filter(x -> x.getRating() >= 80)
+        //        .collect(Collectors.toList());
 
         log.info("Trying to fetch data for : " + players.size() + " players");
         AtomicInteger counter = new AtomicInteger(0);
@@ -65,9 +66,4 @@ public class CrawlerServiceImpl implements CrawlerService {
         });
     }
 
-
-    private static <T> List<T> toList(final Iterable<T> iterable) {
-        return StreamSupport.stream(iterable.spliterator(), false)
-                .collect(Collectors.toList());
-    }
 }
