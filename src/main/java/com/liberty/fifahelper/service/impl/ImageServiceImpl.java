@@ -32,7 +32,7 @@ public class ImageServiceImpl implements ImageService {
     private GridFsTemplate template;
 
     @Override
-    public void saveImage(String url, long playerId) {
+    public void saveImage(String url, String playerId) {
         if (getImage(playerId).isPresent()) {
             log.info("Image for " + playerId + " was stored before");
             return;
@@ -43,7 +43,7 @@ public class ImageServiceImpl implements ImageService {
     }
 
     @Override
-    public Optional<GridFSDBFile> getImage(long playerId) {
+    public Optional<GridFSDBFile> getImage(String playerId) {
         GridFSDBFile image = template
                 .findOne(new Query().addCriteria(Criteria.where("filename").is(getFileName(playerId))));
         return Optional.ofNullable(image);
@@ -141,7 +141,7 @@ public class ImageServiceImpl implements ImageService {
         return new ByteArrayInputStream(bytes);
     }
 
-    private String getFileName(long playerId) {
+    private String getFileName(String playerId) {
         return playerId + ".png";
     }
 }

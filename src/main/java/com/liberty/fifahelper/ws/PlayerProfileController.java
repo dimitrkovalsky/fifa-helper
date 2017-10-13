@@ -4,6 +4,8 @@ import com.liberty.fifahelper.model.PlayerProfile;
 import com.liberty.fifahelper.service.PlayerProfileService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.NotNull;
@@ -25,6 +27,11 @@ public class PlayerProfileController {
     @RequestMapping(path = "/{id}", method = RequestMethod.POST)
     public PlayerProfile get(@PathVariable String id) {
         return playerProfileService.findOne(id);
+    }
+
+    @RequestMapping(method = RequestMethod.GET)
+    public Page<PlayerProfile> getAllPageable(@RequestParam Pageable pageable) {
+        return playerProfileService.findAllByPage(pageable);
     }
 
     @RequestMapping(method = RequestMethod.POST)

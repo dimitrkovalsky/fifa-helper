@@ -1,19 +1,24 @@
 package com.liberty.fifahelper.service.impl;
 
 import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.liberty.fifahelper.model.BuyPlayerInfo;
 import com.liberty.fifahelper.model.BuyPlayersConfig;
+import com.liberty.fifahelper.model.PlayerProfile;
 import com.liberty.fifahelper.repository.BuyPlayersConfigRepository;
+import com.liberty.fifahelper.repository.PlayerProfileRepository;
 import com.liberty.fifahelper.service.BuyPlayerService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -22,6 +27,8 @@ public class BuyPlayerServiceImpl implements BuyPlayerService {
     public static final String USER_ID = "ADMIN";
     @Autowired
     private BuyPlayersConfigRepository playersConfigRepository;
+    @Autowired
+    private PlayerProfileRepository playerProfileRepository;
 
     @Override
     public Map<String, BuyPlayerInfo> getPlayerInfo(List<String> ids) {
@@ -67,5 +74,12 @@ public class BuyPlayerServiceImpl implements BuyPlayerService {
         config.addPlayer(info);
         playersConfigRepository.save(config);
         log.info("Successfully updated player : {} info for user : {}", info.getPlayerId(), userId);
+    }
+
+    @Override
+    public List<PlayerProfile> gePlayerProfiles(String userId) {
+        BuyPlayersConfig config = getUserConfig(userId);
+        List<String> playerIds = config.getPlayers().values().stream().map(BuyPlayerInfo::getPlayerId).collect(Collectors.toList());
+        return Lists.newArrayList(playerProfileRepository.findAll(playerIds));
     }
 }

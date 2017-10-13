@@ -168,8 +168,8 @@ public class FifaDatabaseProcessor {
             imageService.saveNationImage(n);
             log.debug("Stored image for " + n.getName());
         });
-        // clubRepository.findAll().forEach(n -> imageService.saveClubImage(n));
-//    leagueRepository.findAll().forEach(n -> imageService.saveLeagueImage(n));
+        // clubRepository.findAllByPage().forEach(n -> imageService.saveClubImage(n));
+//    leagueRepository.findAllByPage().forEach(n -> imageService.saveLeagueImage(n));
     }
 
     @Data

@@ -2,6 +2,8 @@ package com.liberty.fifahelper.service;
 
 
 import com.liberty.fifahelper.model.PlayerProfile;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -13,6 +15,8 @@ import java.util.List;
 public interface PlayerProfileService {
 
     List<PlayerProfile> searchByPhrase(String phrase);
+
+    Page<PlayerProfile> findAllByPage(Pageable pageable);
 
     PlayerProfile findOne(String id);
 
