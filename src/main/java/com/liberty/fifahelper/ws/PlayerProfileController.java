@@ -2,6 +2,8 @@ package com.liberty.fifahelper.ws;
 
 import com.liberty.fifahelper.model.PlayerProfile;
 import com.liberty.fifahelper.service.PlayerProfileService;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -24,12 +26,16 @@ public class PlayerProfileController {
         return playerProfileService.searchByPhrase(phrase);
     }
 
-    @RequestMapping(path = "/{id}", method = RequestMethod.POST)
-    public PlayerProfile get(@PathVariable String id) {
-        return playerProfileService.findOne(id);
+    @RequestMapping(method = RequestMethod.GET)
+    public List<PlayerProfile> get(@RequestParam(name = "ids") List<String> ids) {
+        return playerProfileService.getAll(ids);
     }
 
-    @RequestMapping(method = RequestMethod.GET)
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "page", dataType = "integer", paramType = "query", defaultValue = "0"),
+            @ApiImplicitParam(name = "size", dataType = "integer", paramType = "query", defaultValue = "20")
+    })
+    @RequestMapping(path = "/pageable", method = RequestMethod.GET)
     public Page<PlayerProfile> getAllPageable(@RequestParam Pageable pageable) {
         return playerProfileService.findAllByPage(pageable);
     }

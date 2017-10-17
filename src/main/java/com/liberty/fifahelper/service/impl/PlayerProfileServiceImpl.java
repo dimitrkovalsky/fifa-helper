@@ -14,7 +14,9 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -61,7 +63,9 @@ public class PlayerProfileServiceImpl implements PlayerProfileService {
     public List<PlayerProfile> getAll(List<String> ids) {
         if (CollectionUtils.isEmpty(ids))
             return Collections.emptyList();
-        return Lists.newArrayList(repository.findAll(ids));
+        ArrayList<PlayerProfile> playerProfiles = Lists.newArrayList(repository.findAll(ids));
+        playerProfiles.sort(Comparator.comparing((PlayerProfile o) -> o.rating).reversed());
+        return playerProfiles;
     }
 
 }
