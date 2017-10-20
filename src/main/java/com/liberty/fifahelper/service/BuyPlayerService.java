@@ -1,6 +1,7 @@
 package com.liberty.fifahelper.service;
 
 import com.liberty.fifahelper.model.BuyPlayerInfo;
+import com.liberty.fifahelper.model.PlayerMonitoring;
 import com.liberty.fifahelper.model.PlayerProfile;
 
 import java.util.List;
@@ -15,4 +16,6 @@ public interface BuyPlayerService {
     void addPlayerForBuy(String userId, BuyPlayerInfo info);
 
     List<PlayerProfile> gePlayerProfiles(String userId);
+
+    List<PlayerMonitoring> geMonitoringProfiles(String userId);
 }

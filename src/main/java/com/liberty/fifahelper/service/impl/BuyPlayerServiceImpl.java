@@ -5,6 +5,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.liberty.fifahelper.model.BuyPlayerInfo;
 import com.liberty.fifahelper.model.BuyPlayersConfig;
+import com.liberty.fifahelper.model.PlayerMonitoring;
 import com.liberty.fifahelper.model.PlayerProfile;
 import com.liberty.fifahelper.repository.BuyPlayersConfigRepository;
 import com.liberty.fifahelper.repository.PlayerProfileRepository;
@@ -13,11 +14,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Service
@@ -81,5 +81,20 @@ public class BuyPlayerServiceImpl implements BuyPlayerService {
         BuyPlayersConfig config = getUserConfig(userId);
         List<String> playerIds = config.getPlayers().values().stream().map(BuyPlayerInfo::getPlayerId).collect(Collectors.toList());
         return Lists.newArrayList(playerProfileRepository.findAll(playerIds));
+    }
+
+    @Override
+    public List<PlayerMonitoring> geMonitoringProfiles(String userId) {
+        BuyPlayersConfig config = getUserConfig(userId);
+        Map<String, BuyPlayerInfo> playerMap = config.getPlayers().values().stream()
+                .collect(Collectors.toMap(BuyPlayerInfo::getPlayerId, Function.identity()));
+        if (CollectionUtils.isEmpty(playerMap))
+            return Collections.emptyList();
+        List<PlayerMonitoring> result = new ArrayList<>();
+        Iterable<PlayerProfile> profiles = playerProfileRepository.findAll(playerMap.keySet());
+        for (PlayerProfile profile : profiles) {
+            result.add(new PlayerMonitoring(profile, playerMap.get(profile.getId())));
+        }
+        return result;
     }
 }

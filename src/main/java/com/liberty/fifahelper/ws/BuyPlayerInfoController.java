@@ -1,7 +1,7 @@
 package com.liberty.fifahelper.ws;
 
 import com.liberty.fifahelper.model.BuyPlayerInfo;
-import com.liberty.fifahelper.model.PlayerProfile;
+import com.liberty.fifahelper.model.PlayerMonitoring;
 import com.liberty.fifahelper.service.BuyPlayerService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +42,7 @@ public class BuyPlayerInfoController {
     }
 
     @RequestMapping(path = "/full", method = RequestMethod.GET)
-    public List<PlayerProfile> getFullPlayers(@RequestParam String userId) {
-        return buyPlayerService.gePlayerProfiles(userId);
+    public List<PlayerMonitoring> getFullPlayers(@RequestParam String userId) {
+        return buyPlayerService.geMonitoringProfiles(userId);
     }
 }
